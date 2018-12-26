@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">pet</string>
+    <string name="hint_name">Name</string>
+    <string name="age">Age</string>
+    <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
+</resources>
