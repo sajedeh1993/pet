@@ -2,6 +2,7 @@ package com.sajedeh.app.pet;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.sajedeh.app.pet.PetContract.PetEntity;
@@ -44,7 +45,13 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(PetEntity.COLUMN_PIC,pet.pic);
 
 
-        db.insert(PetEntity.TABLE_NAME,null,contentValues);
+        long id=db.insert(PetEntity.TABLE_NAME,null,contentValues);
 
+    }
+
+    public Cursor getAll(){
+        SQLiteDatabase db=getReadableDatabase();
+        Cursor cursor=db.rawQuery("select * from " + PetEntity.TABLE_NAME , null);
+        return cursor;
     }
 }

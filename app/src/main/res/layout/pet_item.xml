@@ -21,9 +21,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/age"
+        app:layout_constraintStart_toEndOf="@+id/picture"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="name" />
+        tools:text="name"
+        android:textSize="25sp"/>
 
     <TextView
         android:id="@+id/age"

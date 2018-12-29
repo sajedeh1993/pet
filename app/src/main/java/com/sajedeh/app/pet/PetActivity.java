@@ -69,6 +69,7 @@ public class PetActivity extends AppCompatActivity {
             case R.id.action_save:
                 Pet pet=getpet();
                 dbHelper.insertPet(pet);
+                finish();
                 break;
         }
         return super.onOptionsItemSelected(item);

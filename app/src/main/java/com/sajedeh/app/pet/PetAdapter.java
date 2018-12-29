@@ -30,7 +30,7 @@ public class PetAdapter extends CursorAdapter {
         nameTextView.setText(name);
 
         TextView ageTextView = view.findViewById(R.id.age);
-        nameTextView.setText(Integer.toString(age));
+        ageTextView.setText(Integer.toString(age));
 
         ImageView picImageView = view.findViewById(R.id.picture);
 
