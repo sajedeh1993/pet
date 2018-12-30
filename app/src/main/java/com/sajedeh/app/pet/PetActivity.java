@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class PetActivity extends AppCompatActivity {
@@ -53,7 +54,24 @@ public class PetActivity extends AppCompatActivity {
         catImageView.setOnClickListener(imageViewClickLisener);
         mouseImageView.setOnClickListener(imageViewClickLisener);
 
+        int id=getIntent().getIntExtra("id",-1);
 
+        pet=new DBHelper(this).getPet(id);
+
+        nameEditText.setText(pet.name);
+        ageEditText.setText(Integer.toString(pet.age));
+        genderSpinner.setSelection(pet.gender);
+         switch (pet.pic){
+             case PetContract.PetEntity.PIC_DOG:
+                 dogImageView.setImageResource(R.drawable.select);
+                 break;
+                 case PetContract.PetEntity.PIC_CAT:
+                 catImageView.setImageResource(R.drawable.select);
+                 break;
+                 case PetContract.PetEntity.PIC_MOUSE:
+                 mouseImageView.setImageResource(R.drawable.select);
+                 break;
+         }
     }
 
     @Override
@@ -67,8 +85,12 @@ public class PetActivity extends AppCompatActivity {
         switch (item.getItemId()){
 
             case R.id.action_save:
-                Pet pet=getpet();
-                dbHelper.insertPet(pet);
+               if(getIntent().hasExtra("id")){
+                   dbHelper.updatePet(getpet());
+               }else {
+                   Pet pet=getpet();
+                   dbHelper.insertPet(pet);
+               }
                 finish();
                 break;
         }

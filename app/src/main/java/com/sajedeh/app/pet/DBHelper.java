@@ -54,4 +54,32 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor=db.rawQuery("select * from " + PetEntity.TABLE_NAME , null);
         return cursor;
     }
+    public Pet getPet(int id){
+        SQLiteDatabase db=getReadableDatabase();
+        Cursor cursor=db.rawQuery("select * from " + PetEntity.TABLE_NAME + " where " + PetEntity.COLUMN_ID + "=" + id, null);
+        Pet pet=new Pet();
+        while (cursor.moveToNext()){
+            pet.id=cursor.getInt(cursor.getColumnIndex(PetEntity.COLUMN_ID));
+            pet.name=cursor.getString(cursor.getColumnIndex(PetEntity.COLUMN_NAME));
+            pet.age=cursor.getInt(cursor.getColumnIndex(PetEntity.COLUMN_AGE));
+            pet.gender=cursor.getInt(cursor.getColumnIndex(PetEntity.COLUMN_GENDER));
+            pet.pic=cursor.getInt(cursor.getColumnIndex(PetEntity.COLUMN_PIC));
+        }
+        return pet;
+    }
+
+    public void updatePet(Pet pet) {
+        SQLiteDatabase db=getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(PetEntity.COLUMN_NAME,pet.name);
+        contentValues.put(PetEntity.COLUMN_AGE,pet.age);
+        contentValues.put(PetEntity.COLUMN_GENDER,pet.gender);
+        contentValues.put(PetEntity.COLUMN_PIC,pet.pic);
+
+        db.update(PetEntity.TABLE_NAME,
+                contentValues,
+                PetEntity.COLUMN_ID +"=?",
+                new String[]{Integer.toString(pet.id)});
+    }
 }

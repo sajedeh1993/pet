@@ -1,10 +1,12 @@
 package com.sajedeh.app.pet;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,6 +28,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        PetListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Cursor cursor= (Cursor) adapterView.getItemAtPosition(i);
+                int id=cursor.getInt(cursor.getColumnIndex(PetContract.PetEntity.COLUMN_ID));
+                Intent intent=new Intent(MainActivity.this,PetActivity.class);
+                intent.putExtra("id",id);
+                startActivity(intent);
+            }
+        });
     }
 
     private void loadPets(){
@@ -39,4 +52,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         loadPets();
     }
+
+
 }
